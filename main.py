@@ -13,9 +13,14 @@ import pandas as pd
 import hydralit_components as hc
 from streamlit_lottie import st_lottie
 import requests
+import google.generativeai as genai
+from google.generativeai.types import HarmCategory, HarmBlockThreshold
+import ast
+
+
 # MongoDB connection string
-mongo_atlas_user_name = "navinofficial1"
-mongo_atlas_password = "lsAEuQh0bNDzyese"
+mongo_atlas_user_name = st.secrets["mongo_atlas_user_name"]
+mongo_atlas_password = st.secrets["mongo_atlas_password"]
 # client = pymongo.MongoClient(f"mongodb+srv://{mongo_atlas_user_name}:{mongo_atlas_password}@cluster0.mkrsiyl.mongodb.net/?retryWrites=true&w=majority")
 client = pymongo.MongoClient("mongodb://localhost:27017/")
 db = client.bizcardx
@@ -107,6 +112,12 @@ def modify_existing_data():
     
     card_holder_list = data_df.apply(lambda row: f"{row['card_holder_name']} - {row['company_name']}", axis=1).tolist()
     selected_value = st.selectbox("Select Card Holder:", [''] + card_holder_list, key='selected_value',)
+    if not selected_value:
+        introcol1, introcol2, introcol3 = st.columns([1, 1, 1])
+        with introcol2:
+            intro_card_extracting_animation_url = "https://lottie.host/e0b8a386-c9ea-4042-a9b8-ed63bec5f371/TF196S2MpR.json"
+            intro_card_extracting_animation = load_lottie_url(intro_card_extracting_animation_url)
+            st_lottie(intro_card_extracting_animation, width=350, height=350, quality='medium')       
     if selected_value:
         selected_card_holder_name = selected_value.split(' - ')[0]
         selected_record = data_df[data_df['card_holder_name'] == selected_card_holder_name].iloc[0]
@@ -189,17 +200,56 @@ def modify_existing_data():
     
 
 
+# Initialize EasyOCR reader
 reader = easyocr.Reader(['en'])
 
-def extract_text_and_display(image):
 
+
+def extract_text_and_display(image):
     # Perform OCR
     results = reader.readtext(image)
-
-    # Extract text lines
     text_lines = [text for bbox, text, _ in results]
+    
+    
+    # Concatenate text lines into a single string
+    text_to_classify = "\n".join(text_lines)
+    def google_genai(text_to_classify):
+        # Configure the Generative AI API
+        genai.configure(api_key=st.secrets["google_genai_api_key"])
+        # Define the generation configuration
+        generation_config = {
+            "temperature": 1,
+            "top_p": 0.95,
+            "top_k": 64,
+            "max_output_tokens": 8192,
+            "response_mime_type": "text/plain",
+        }
 
-    # Extracted information dictionary
+        # Create the GenerativeModel with new configuration and safety settings
+        model = genai.GenerativeModel(
+            model_name="gemini-1.5-flash",
+            generation_config=generation_config,
+            safety_settings={
+                HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
+                HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
+            }
+        )
+
+        # Start a chat session with the model
+        chat_session = model.start_chat(history=[])
+
+        # Send message to the model with extracted text
+        response = chat_session.send_message(
+            f"""Please analyze the following data and accurately identify the details. Organize them in the following format: 
+            Company Name, Card Holder Name, Designation, Phone Number, Email, Website, Address, State, City, and Pincode. 
+            Ensure the address is complete, including the city, state, and pincode. Please correct any errors in the given data like missing dot in the email or website ect. 
+            Don't take company name from email id, if there is no company name in the provided data leave it blank.
+            Provide the final output in a Python dictionary format.: {text_to_classify}""")
+        
+        return response
+    
+    response = google_genai(text_to_classify)
+    # Initialize extracted_info to avoid UnboundLocalError
     extracted_info = {
         'company_name': '',
         'card_holder_name': '',
@@ -213,60 +263,35 @@ def extract_text_and_display(image):
         'pin_code': ''
     }
 
-    # Regular expressions for pattern matching
-    email_pattern = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
-    phone_pattern = re.compile(r'\b(\+?\d{1,3}[-.\s]?)?(\(?\d{2,3}\)?[-.\s]?)?(\d{3,4}[-.\s]?\d{4})\b')
-    website_pattern = re.compile(r'\b(?:http://|https://)?(?:www\.)?[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
-    pin_code_pattern = re.compile(r'\b\d{5,6}\b')
+    # Parse the response based on the provided Python dictionary format
+    if 'data =' in response.text:
+        try:
+            # Extract the dictionary content from the response text
+            start_index = response.text.index('{')
+            end_index = response.text.rindex('}') + 1
+            dict_content = response.text[start_index:end_index]
 
-    # Keywords for designation and address
-    designation_keywords = ['manager', 'executive', 'director', 'chief', 'officer', 'head', 'leader', 'consultant']
-    address_keywords = ['street', 'st', 'road', 'rd', 'block', 'building', 'area', 'city', 'state', 'pin', 'postal']
+            # Use ast.literal_eval to safely evaluate the dictionary string
+            data = ast.literal_eval(dict_content)
 
-    # Extract information from text lines
-    for line in text_lines:
-        if email_pattern.search(line):
-            extracted_info['email_address'] = email_pattern.search(line).group().lower().strip()
-        elif phone_pattern.search(line):
-            extracted_info['mobile_number'] = phone_pattern.search(line).group().strip()
-        elif website_pattern.search(line):
-            extracted_info['website_url'] = website_pattern.search(line).group().lower().strip()
-        elif pin_code_pattern.search(line):
-            extracted_info['pin_code'] = pin_code_pattern.search(line).group().strip()
-        elif any(keyword in line.lower() for keyword in designation_keywords):
-            extracted_info['designation'] = line.title().strip()
-        elif re.match(r'^\d{2,3}\s', line):
-            extracted_info['address'] = line
-        elif not extracted_info['card_holder_name']:
-            extracted_info['card_holder_name'] = line.title().strip()
-        else:
-            extracted_info['company_name'] += '' + line.title().strip()
-
-    # Split address into city, state, and pin code
-    if 'address' in extracted_info and extracted_info['address']:
-        address_parts = extracted_info['address'].split(',')
-        if len(address_parts) > 2:
-            extracted_info['city'] = address_parts[-2].strip()
-            state_pin = address_parts[-1].strip()
-            if re.search(pin_code_pattern, state_pin):
-                state_pin_split = state_pin.split()
-                if len(state_pin_split) > 1:
-                    # Check if pincode is before the state
-                    if re.match(pin_code_pattern, state_pin_split[0]):
-                        extracted_info['pin_code'] = state_pin_split[0]
-                        extracted_info['state'] = ' '.join(state_pin_split[1:])
-                    # Pincode is after the state
-                    else:
-                        extracted_info['state'] = ' '.join(state_pin_split[:-1])
-                        extracted_info['pin_code'] = state_pin_split[-1]
-                else:
-                    extracted_info['state'] = state_pin
-            else:
-                extracted_info['state'] = state_pin
-
+            # Update extracted_info with the data from the response dictionary
+            extracted_info.update({
+                'company_name': data.get("Company Name", "").title() if data.get("Company Name") is not None else "",
+                'card_holder_name': data.get("Card Holder Name", "").title() if data.get("Card Holder Name") is not None else "",
+                'designation': data.get("Designation", "").title() if data.get("Designation") is not None else "",
+                'mobile_number': data.get("Phone Number", ""),
+                'email_address': data.get("Email", "").lower() if data.get("Email") is not None else "",
+                'website_url': data.get("Website", "").lower() if data.get("Website") is not None else "",
+                'address': data.get("Address", ""),
+                'city': data.get("City", "").title() if data.get("City") is not None else "",
+                'state': data.get("State", "").title() if data.get("State") is not None else "",
+                'pin_code': data.get("Pincode", "")
+            })
+        except (ValueError, SyntaxError) as e:
+            print("Error parsing response:", e)
+    
     # Convert extracted_info dictionary to Pandas DataFrame
     extracted_df = pd.DataFrame([extracted_info])
-
     # Create annotated image with bounding boxes
     annotated_image = image.copy()
     for (bbox, text, prob) in results:
@@ -293,12 +318,13 @@ def extract_text_and_display(image):
 
     return extracted_df, annotated_image
 
+
 # Streamlit UI
 st.set_page_config(layout="wide")
 menu_data = [
     {'icon': "fa fa-home", 'label': "HOME"},
     {'icon': "fas fa-upload", 'label': "UPLOAD & EXTRACT"},
-    {'icon': "far fa-edit", 'label': "MODIFY EXISTING DATA"},
+    {'icon': "far fa-edit", 'label': "VIEW OR MODIFY EXISTING DATA"},
     {'icon': "fa fa-info-circle", 'label': "ABOUT"}]
 
 over_theme = {'txc_inactive': '#FFFFFF', 'bg': '#07bff'}  
@@ -308,10 +334,44 @@ menu_id = hc.nav_bar(
     hide_streamlit_markers=False, 
     sticky_nav=True,
     sticky_mode='pinned')
+import streamlit.components.v1 as components
+import base64
+from io import BytesIO
 
+def get_image_base64(image):
+    buffered = BytesIO()
+    image.save(buffered, format="PNG")
+    return base64.b64encode(buffered.getvalue()).decode()
+if menu_id == 'HOME':
+
+    st.markdown("""
+    <div style='text-align:center'>
+        <img src='https://raw.githubusercontent.com/navinds/BizCardX-Extracting-Business-Card-Data-with-OCR/main/Media/bizcardx_how_it_works.svg' alt='Step 1: Load the Data' style='width: 100%; max-width: 1350px;'/>
+    </div>
+    """, unsafe_allow_html=True)   
+    st.title("")
+    st.subheader(":blue[Extract and Manage Business Card Information] ")
+    hom1,hom2 = st.columns([1,1])
+    with hom1:
+            hom1_url = "https://lottie.host/934f12e6-2357-4a87-85d5-413a2023d82d/XXBSIeVZSq.json"
+            hom1_ani = load_lottie_url(hom1_url)
+            st_lottie(hom1_ani, width=350, height=350, quality='medium')        
+
+    st.markdown("BizCardX uses state-of-the-art technology to organize your business card information seamlessly. Whether you're looking to organize contacts, save time, or improve efficiency, BizCardX is here to help.")
+
+
+    # Features section
+    st.subheader(":blue[Features]")
+    st.markdown("""
+    - **Accurate Information Extraction**: Efficiently extracts text information from business card images using EasyOCR.
+    - **AI-Powered Identification**: Utilizes Google Gen AI (Gemini) to correctly identify and classify extracted data into relevant categories.
+    - **User-Friendly Interface**: Seamlessly interact with a straightforward and user-friendly interface.
+    - **Database Integration**: Efficiently store extracted information in MongoDB, an advanced NoSQL database, ensuring efficient data management and scalability.
+    - **Manage Records**: Easily add, update, and delete records through the application interface.
+    """)    
 if menu_id == 'UPLOAD & EXTRACT':
-    st.title("Image Text Extraction")
-
+    st.title("Business Card Data Extraction")
+    st.caption("Simply Upload a business card, extract the data, and store into database! ")
     # Function to clear session state
     def clear_text_inputs():
         keys_to_delete = [key for key in list(st.session_state.keys()) if key.startswith('input_') or key in ['extracted_df', 'annotated_image']]
@@ -320,7 +380,12 @@ if menu_id == 'UPLOAD & EXTRACT':
 
     # File uploader with on_change to clear text inputs
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"], on_change=clear_text_inputs)
-
+    if not uploaded_file:
+        introcol1, introcol2, introcol3 = st.columns([1, 1, 1])
+        with introcol2:
+            intro_card_extracting_animation_url = "https://lottie.host/934f12e6-2357-4a87-85d5-413a2023d82d/XXBSIeVZSq.json"
+            intro_card_extracting_animation = load_lottie_url(intro_card_extracting_animation_url)
+            st_lottie(intro_card_extracting_animation, width=350, height=350, quality='medium')
     if uploaded_file is not None:
         # Read image from uploaded file
         image = cv2.imdecode(np.fromstring(uploaded_file.read(), np.uint8), cv2.IMREAD_COLOR)
@@ -329,7 +394,7 @@ if menu_id == 'UPLOAD & EXTRACT':
         if 'extracted_df' not in st.session_state:
             extracting_animation_url = "https://lottie.host/3400bf08-d321-4dd1-9911-936065b9c4b9/6dwJipzxC4.json"
             extracting_animation = load_lottie_url(extracting_animation_url)
-
+ 
             animation_placeholder = st.empty()
             
             with st.spinner('Extracting text from image...'):
@@ -337,7 +402,26 @@ if menu_id == 'UPLOAD & EXTRACT':
                     with animation_placeholder:
                         col1, col2, col3 = st.columns([1, 2, 1])
                         with col2:
-                            st_lottie(extracting_animation, width=450, height=450, quality='medium')
+                            uploaded_image = Image.open(uploaded_file)
+                            uploaded_image_base64 = get_image_base64(uploaded_image)
+
+                            # HTML and CSS to overlay the animation on the image
+                            custom_html = f"""
+                            <div style="position: relative; display: inline-block;">
+                                <img src="data:image/png;base64,{uploaded_image_base64}" 
+                                    style="width: 100%; height: auto;">
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                    <lottie-player src="{extracting_animation_url}" 
+                                                background="transparent" 
+                                                speed="1" 
+                                                style="width: 570px; height: 500px;" 
+                                                loop autoplay>
+                                    </lottie-player>
+                                </div>
+                            </div>
+                            <script src="https://unpkg.com/@lottiefiles/lottie-player@latest"></script>
+                            """
+                            components.html(custom_html, height=500)                            
                 
                 # Extract text and get results
                 extracted_df, annotated_image = extract_text_and_display(image)
@@ -396,5 +480,5 @@ if menu_id == 'UPLOAD & EXTRACT':
         if st.button('Save into Database'):
             mongo_extracted_data_table(extracted_df)
 
-elif menu_id == 'MODIFY EXISTING DATA':
+elif menu_id == 'VIEW OR MODIFY EXISTING DATA':
     modify_existing_data()
