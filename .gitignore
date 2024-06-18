@@ -162,3 +162,5 @@ cython_debug/
 #.idea/
 /bizcardx.ipynb
 /main copy.py
+secrets.toml
+
