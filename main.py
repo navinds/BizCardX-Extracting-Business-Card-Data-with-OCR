@@ -16,6 +16,9 @@ import requests
 import google.generativeai as genai
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
 import ast
+import streamlit.components.v1 as components
+import base64
+from io import BytesIO
 
 
 # MongoDB connection string
@@ -353,9 +356,7 @@ menu_id = hc.nav_bar(
     hide_streamlit_markers=False, 
     sticky_nav=True,
     sticky_mode='pinned')
-import streamlit.components.v1 as components
-import base64
-from io import BytesIO
+
 
 def get_image_base64(image):
     buffered = BytesIO()
