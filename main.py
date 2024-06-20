@@ -362,209 +362,210 @@ def get_image_base64(image):
     image.save(buffered, format="PNG")
     return base64.b64encode(buffered.getvalue()).decode()
 if menu_id == 'HOME':
-
-    st.markdown("""
-    <div style='text-align:center'>
-        <img src='https://raw.githubusercontent.com/navinds/BizCardX-Extracting-Business-Card-Data-with-OCR/main/Media/bizcardx_how_it_works_.svg' alt='Step 1: Load the Data' style='width: 100%; max-width: 1350px;'/>
-    </div>
-    """, unsafe_allow_html=True)   
-    st.title("")
-    st.subheader(":blue[Extract and Manage Business Card Information using our BizCardX] ")
-    hom1,hom2 = st.columns(2)
-    with hom1:
-            hom1_url = "https://lottie.host/3634ced5-d95e-4064-bf0b-cda08e0b03f8/tgZ19X8CFL.json"
-            hom1_ani = load_lottie_url(hom1_url)
-            st_lottie(hom1_ani, width=500, height=400, quality='medium')        
-    with hom2:
-        st.text("")
+    def home():
+        st.markdown("""
+        <div style='text-align:center'>
+            <img src='https://raw.githubusercontent.com/navinds/BizCardX-Extracting-Business-Card-Data-with-OCR/main/Media/bizcardx_how_it_works_.svg' alt='Step 1: Load the Data' style='width: 100%; max-width: 1350px;'/>
+        </div>
+        """, unsafe_allow_html=True)   
         st.title("")
-        st.subheader(":blue[BizCardX] uses state-of-the-art technology to organize your business card information seamlessly. Whether you're looking to organize contacts, save time, or improve efficiency, BizCardX is here to help.")
+        st.subheader(":blue[Extract and Manage Business Card Information using our BizCardX] ")
+        hom1,hom2 = st.columns(2)
+        with hom1:
+                hom1_url = "https://lottie.host/3634ced5-d95e-4064-bf0b-cda08e0b03f8/tgZ19X8CFL.json"
+                hom1_ani = load_lottie_url(hom1_url)
+                st_lottie(hom1_ani, width=500, height=400, quality='medium')        
+        with hom2:
+            st.text("")
+            st.title("")
+            st.subheader(":blue[BizCardX] uses state-of-the-art technology to organize your business card information seamlessly. Whether you're looking to organize contacts, save time, or improve efficiency, BizCardX is here to help.")
 
 
-    # Features section
-    
-    hom3,hom4 = st.columns(2)
-    with hom3:
-        st.header(":blue[Features]")
-        st.text("")
-        st.text("")
-        st.subheader(":blue[**Accurate Information Extraction**]: Efficiently extracts text information from business card images using EasyOCR.")
+        # Features section
+        
+        hom3,hom4 = st.columns(2)
+        with hom3:
+            st.header(":blue[Features]")
+            st.text("")
+            st.text("")
+            st.subheader(":blue[**Accurate Information Extraction**]: Efficiently extracts text information from business card images using EasyOCR.")
 
-    with hom4:
-            hom4_url = "https://lottie.host/6dafd6d6-6336-4d96-b325-c1dd97216ae4/NtQrq7nVIf.json"
-            hom4_ani = load_lottie_url(hom4_url)
-            st_lottie(hom4_ani,width=500, height=300, quality='medium')  
+        with hom4:
+                hom4_url = "https://lottie.host/6dafd6d6-6336-4d96-b325-c1dd97216ae4/NtQrq7nVIf.json"
+                hom4_ani = load_lottie_url(hom4_url)
+                st_lottie(hom4_ani,width=500, height=300, quality='medium')  
 
-    hom5,hom6,hom7 = st.columns([1.15,1.05,1.90])
-    with hom5:
-        image_url = 'https://github.com/navinds/BizCardX-Extracting-Business-Card-Data-with-OCR/blob/main/Media/Google%20Ai%20Gemini.png?raw=true'
-        st.image(image_url, width=400)  # Adjust width as needed
-    with hom7:
-        st.title(" ")
-        st.subheader(":blue[**AI-Powered Identification**:] Utilizes Google Gen AI (Gemini) to correctly identify and classify extracted data into relevant categories.")
-    with hom6:
-        ai_url = "https://lottie.host/9f5e4af3-920f-4900-919a-1d0cb13a2dbf/3nfdf7Eoxz.json"
-        ai_ani = load_lottie_url(ai_url)
-        st_lottie(ai_ani, width=300, height=300, quality='medium')  
+        hom5,hom6,hom7 = st.columns([1.15,1.05,1.90])
+        with hom5:
+            image_url = 'https://github.com/navinds/BizCardX-Extracting-Business-Card-Data-with-OCR/blob/main/Media/Google%20Ai%20Gemini.png?raw=true'
+            st.image(image_url, width=400)  # Adjust width as needed
+        with hom7:
+            st.title(" ")
+            st.subheader(":blue[**AI-Powered Identification**:] Utilizes Google Gen AI (Gemini) to correctly identify and classify extracted data into relevant categories.")
+        with hom6:
+            ai_url = "https://lottie.host/9f5e4af3-920f-4900-919a-1d0cb13a2dbf/3nfdf7Eoxz.json"
+            ai_ani = load_lottie_url(ai_url)
+            st_lottie(ai_ani, width=300, height=300, quality='medium')  
 
-    hom7,hom8 = st.columns(2)
-    with hom7:
-        st.text("")
-        st.title("")
-        st.subheader(":blue[**User-Friendly Interface**:] Seamlessly interact with a straightforward and user-friendly interface. Enjoy quick access to essential features, intuitive navigation, and responsive design")
+        hom7,hom8 = st.columns(2)
+        with hom7:
+            st.text("")
+            st.title("")
+            st.subheader(":blue[**User-Friendly Interface**:] Seamlessly interact with a straightforward and user-friendly interface. Enjoy quick access to essential features, intuitive navigation, and responsive design")
 
-    with hom8:
-            ui_url = "https://lottie.host/597857c7-1fff-423c-b104-f80bff449ed8/tKx86mrKLL.json"
-            ui_ani = load_lottie_url(ui_url)
-            st_lottie(ui_ani,width=500, height=350, quality='medium')  
+        with hom8:
+                ui_url = "https://lottie.host/597857c7-1fff-423c-b104-f80bff449ed8/tKx86mrKLL.json"
+                ui_ani = load_lottie_url(ui_url)
+                st_lottie(ui_ani,width=500, height=350, quality='medium')  
 
-    hom9,hom10= st.columns(2)
-    with hom9:
-            db_url = "https://lottie.host/4a3c23db-b109-4ffa-976e-82b40ab9eb60/uuQ7e0SReD.json"
-            db_ani = load_lottie_url(db_url)
-            st_lottie(db_ani,width=500, height=400, quality='medium')  
+        hom9,hom10= st.columns(2)
+        with hom9:
+                db_url = "https://lottie.host/4a3c23db-b109-4ffa-976e-82b40ab9eb60/uuQ7e0SReD.json"
+                db_ani = load_lottie_url(db_url)
+                st_lottie(db_ani,width=500, height=400, quality='medium')  
 
-    with hom10:
-        st.title(" ")
-        st.text("")
-        st.text("")
-        st.subheader(":blue[**Database Integration**:] Efficiently store extracted information in MongoDB, an advanced NoSQL database, ensuring efficient data management and scalability.")
+        with hom10:
+            st.title(" ")
+            st.text("")
+            st.text("")
+            st.subheader(":blue[**Database Integration**:] Efficiently store extracted information in MongoDB, an advanced NoSQL database, ensuring efficient data management and scalability.")
 
-    hom11,hom12 = st.columns(2)
-    with hom11:
-        st.title("")
-        st.title("")
-        st.subheader(":blue[**Manage Records**:] Easily add, update, and delete records through the application interface.")
+        hom11,hom12 = st.columns(2)
+        with hom11:
+            st.title("")
+            st.title("")
+            st.subheader(":blue[**Manage Records**:] Easily add, update, and delete records through the application interface.")
 
-    with hom12:
-            ui_url = "https://lottie.host/20ede9b0-bc49-4829-8387-75d2377c16e0/2Quqi5SjMT.json"
-            ui_ani = load_lottie_url(ui_url)
-            st_lottie(ui_ani,width=500, height=350, quality='medium')  
+        with hom12:
+                ui_url = "https://lottie.host/20ede9b0-bc49-4829-8387-75d2377c16e0/2Quqi5SjMT.json"
+                ui_ani = load_lottie_url(ui_url)
+                st_lottie(ui_ani,width=500, height=350, quality='medium')  
+    home()
 
 if menu_id == 'ABOUT':
+    def about():
+        st.title(":blue[About BizCardX]")
 
-    st.title(":blue[About BizCardX]")
-
-    st.markdown("""
-    BizCardX is an advanced solution designed to streamline the process of managing business card information. Our application leverages cutting-edge technologies to ensure accurate and efficient extraction, identification, and management of business card data.
-    """)
-    
-    st.header(":blue[Our Mission]")
-    st.markdown("""
-   Mission is to simplify the the way professionals handle business card information. We aim to provide a seamless and intuitive platform that saves time, reduces manual errors, and enhances productivity.
-    """)
-    
-    
-    st.header(":blue[Key Technologies]")
-    st.markdown("""
-    - **EasyOCR**: Utilized for high-accuracy text extraction from business card images.
-    - **Google Gen AI (Gemini)**: Employed for intelligent data classification to correctly identify and categorize extracted text.
-    - **MongoDB**: An advanced NoSQL database used for efficient and scalable data storage.
-    - **Streamlit**: The framework used to build our user-friendly and interactive interface.
-    """)
-    
-    st.header(":blue[Core Features]")
-    st.markdown("""
-    - **Accurate Information Extraction**: Efficiently extracts text information from business card images.
-    - **AI-Powered Identification**: Utilizes advanced AI to classify and organize extracted data into relevant categories.
-    - **User-Friendly Interface**: Intuitive and responsive design for easy navigation and usage.
-    - **Advanced Database Integration**: Stores extracted information in MongoDB for robust and scalable data management.
-    - **Comprehensive Record Management**: Easily add, update, and delete records through the application interface.
-    """)
-    
-    st.header(":blue[How This Application Will Be Helpful]")
-    st.markdown("""
-    1. Automates the process of extracting and organizing business card information, reducing manual data entry time.
-    2. Minimizes human errors in data entry by accurately extracting and classifying information.
-    3. Keeps all your business card information in one place, making it easy to manage and access contacts.
-    4. Quickly retrieve contact details to follow up with leads, clients, and colleagues.
-    5. Efficiently handles a growing number of business cards, making it suitable for individuals and businesses alike.
-    """)
-    
-
-    st.header(":blue[About Me]")    
-    st.markdown("""
-        Hi, I'm Navin, deeply passionate about the sea of data science and AI. 
-        My goal is to become a skilled data scientist.
-
-        Beyond the lines of code, my aim is to innovate and be a part of transformative technological evolution. 
-        The world needs solutions that not only solve problems but redefine them. 
-        I'm here to create change.
-    """)
-
-    # LinkedIn link with logo
-    st.header(":blue[Connect with Me or Share me your feedback ]")    
-    col1, col2 = st.columns([1,20])
+        st.markdown("""
+        BizCardX is an advanced solution designed to streamline the process of managing business card information. Our application leverages cutting-edge technologies to ensure accurate and efficient extraction, identification, and management of business card data.
+        """)
         
-    with col1:  
+        st.header(":blue[Our Mission]")
+        st.markdown("""
+    Mission is to simplify the the way professionals handle business card information. We aim to provide a seamless and intuitive platform that saves time, reduces manual errors, and enhances productivity.
+        """)
         
-        linkedin_logo = "https://img.icons8.com/fluent/48/000000/linkedin.png"  
-        linkedin_url = "https://www.linkedin.com/in/navinkumarsofficial/"  
-        st.markdown(f"[![LinkedIn]({linkedin_logo})]({linkedin_url})")
-    with col2:
-        # Email with logo
-        email_logo = "https://img.icons8.com/fluent/48/000000/email.png"  
-        your_email = "https://mail.google.com/mail/?view=cm&source=mailto&to=navin.workwise@gmail.com"
-        st.markdown(f"[![Email]({email_logo})]({your_email})")
         
-    st.header(":blue[My other projects]") 
-    st.caption("Click the image to see the project")
-    col1, col2 = st.columns([1, 5])
-    with col1:  
-        st.text("")
-        fine_dine = "https://raw.githubusercontent.com/navinds/Zomato-Data-Analysis-and-Visualization/main/Media/finefdine_red_logo.png"  
-        fine_dine_project_url = "https://navinsfinedine.streamlit.app/"  
-        st.markdown(f'<a href="{fine_dine_project_url}" target="_blank"><img src="{fine_dine}" width="200"></a>', unsafe_allow_html=True)
+        st.header(":blue[Key Technologies]")
+        st.markdown("""
+        - **EasyOCR**: Utilized for high-accuracy text extraction from business card images.
+        - **Google Gen AI (Gemini)**: Employed for intelligent data classification to correctly identify and categorize extracted text.
+        - **MongoDB**: An advanced NoSQL database used for efficient and scalable data storage.
+        - **Streamlit**: The framework used to build our user-friendly and interactive interface.
+        """)
+        
+        st.header(":blue[Core Features]")
+        st.markdown("""
+        - **Accurate Information Extraction**: Efficiently extracts text information from business card images.
+        - **AI-Powered Identification**: Utilizes advanced AI to classify and organize extracted data into relevant categories.
+        - **User-Friendly Interface**: Intuitive and responsive design for easy navigation and usage.
+        - **Advanced Database Integration**: Stores extracted information in MongoDB for robust and scalable data management.
+        - **Comprehensive Record Management**: Easily add, update, and delete records through the application interface.
+        """)
+        
+        st.header(":blue[How This Application Will Be Helpful]")
+        st.markdown("""
+        1. Automates the process of extracting and organizing business card information, reducing manual data entry time.
+        2. Minimizes human errors in data entry by accurately extracting and classifying information.
+        3. Keeps all your business card information in one place, making it easy to manage and access contacts.
+        4. Quickly retrieve contact details to follow up with leads, clients, and colleagues.
+        5. Efficiently handles a growing number of business cards, making it suitable for individuals and businesses alike.
+        """)
+        
 
-    with col2:
-        pulse_vision = "https://raw.githubusercontent.com/navinds/PhonePe-Pulse-Data-Visualization-and-Exploration/main/Media/pulse_vision_logo.png"  
-        pulse_vision_project_url = "https://navinspulsevision.streamlit.app"
-        st.markdown(f'<a href="{pulse_vision_project_url}" target="_blank"><img src="{pulse_vision}" width="200"></a>', unsafe_allow_html=True)
+        st.header(":blue[About Me]")    
+        st.markdown("""
+            Hi, I'm Navin, deeply passionate about the sea of data science and AI. 
+            My goal is to become a skilled data scientist.
 
-    st.header(":blue[Frequently Asked Questions]")
+            Beyond the lines of code, my aim is to innovate and be a part of transformative technological evolution. 
+            The world needs solutions that not only solve problems but redefine them. 
+            I'm here to create change.
+        """)
 
-    with st.expander("How does BizCardX extract information from business cards?"):
-        st.write("BizCardX uses EasyOCR to extract text from business card images and Google Gen AI (Gemini) to classify the extracted text into relevant categories.")
+        # LinkedIn link with logo
+        st.header(":blue[Connect with Me or Share me your feedback ]")    
+        col1, col2 = st.columns([1,20])
+            
+        with col1:  
+            
+            linkedin_logo = "https://img.icons8.com/fluent/48/000000/linkedin.png"  
+            linkedin_url = "https://www.linkedin.com/in/navinkumarsofficial/"  
+            st.markdown(f"[![LinkedIn]({linkedin_logo})]({linkedin_url})")
+        with col2:
+            # Email with logo
+            email_logo = "https://img.icons8.com/fluent/48/000000/email.png"  
+            your_email = "https://mail.google.com/mail/?view=cm&source=mailto&to=navin.workwise@gmail.com"
+            st.markdown(f"[![Email]({email_logo})]({your_email})")
+            
+        st.header(":blue[My other projects]") 
+        st.caption("Click the image to see the project")
+        col1, col2 = st.columns([1, 5])
+        with col1:  
+            st.text("")
+            fine_dine = "https://raw.githubusercontent.com/navinds/Zomato-Data-Analysis-and-Visualization/main/Media/finefdine_red_logo.png"  
+            fine_dine_project_url = "https://navinsfinedine.streamlit.app/"  
+            st.markdown(f'<a href="{fine_dine_project_url}" target="_blank"><img src="{fine_dine}" width="200"></a>', unsafe_allow_html=True)
 
-    with st.expander("Is my data secure with BizCardX?"):
-        st.write("Yes, BizCardX ensures that your data is securely stored in MongoDB, an advanced NoSQL database known for its scalability and security features.")
+        with col2:
+            pulse_vision = "https://raw.githubusercontent.com/navinds/PhonePe-Pulse-Data-Visualization-and-Exploration/main/Media/pulse_vision_logo.png"  
+            pulse_vision_project_url = "https://navinspulsevision.streamlit.app"
+            st.markdown(f'<a href="{pulse_vision_project_url}" target="_blank"><img src="{pulse_vision}" width="200"></a>', unsafe_allow_html=True)
 
-    with st.expander("Can I update or delete saved records?"):
-        st.write("Absolutely! BizCardX provides a user-friendly interface to easily add, update, and delete records.")
+        st.header(":blue[Frequently Asked Questions]")
 
-    with st.expander("What types of business cards does BizCardX support?"):
-        st.write("BizCardX supports a wide variety of business cards, regardless of their layout or design, thanks to the robust OCR and AI technologies employed.")
+        with st.expander("How does BizCardX extract information from business cards?"):
+            st.write("BizCardX uses EasyOCR to extract text from business card images and Google Gen AI (Gemini) to classify the extracted text into relevant categories.")
 
-    with st.expander("How can I provide feedback or request new features?"):
-        st.write("We value your feedback! Please contact our support team or visit our website to provide feedback or request new features.")
+        with st.expander("Is my data secure with BizCardX?"):
+            st.write("Yes, BizCardX ensures that your data is securely stored in MongoDB, an advanced NoSQL database known for its scalability and security features.")
 
-    with st.expander("Can BizCardX handle business cards in multiple languages?"):
-        st.write("Yes, BizCardX is equipped to handle business cards in multiple languages, leveraging EasyOCR's language support capabilities.")
+        with st.expander("Can I update or delete saved records?"):
+            st.write("Absolutely! BizCardX provides a user-friendly interface to easily add, update, and delete records.")
 
-    with st.expander("Do I need an internet connection to use BizCardX?"):
-        st.write("Yes, an internet connection is required to upload images, process them using EasyOCR, and interact with Google Gen AI (Gemini) for data classification.")
+        with st.expander("What types of business cards does BizCardX support?"):
+            st.write("BizCardX supports a wide variety of business cards, regardless of their layout or design, thanks to the robust OCR and AI technologies employed.")
 
-    with st.expander("Is there a limit to the number of business cards I can upload?"):
-        st.write("BizCardX does not impose a strict limit on the number of business cards you can upload. However, storage limitations may depend on the plan or subscription you are using.")
+        with st.expander("How can I provide feedback or request new features?"):
+            st.write("We value your feedback! Please contact our support team or visit our website to provide feedback or request new features.")
 
-    with st.expander("How can I ensure the best OCR results with BizCardX?"):
-        st.write("To ensure the best OCR results, please upload clear and well-lit images of the business cards. Avoid shadows and reflections that may obscure the text.")
+        with st.expander("Can BizCardX handle business cards in multiple languages?"):
+            st.write("Yes, BizCardX is equipped to handle business cards in multiple languages, leveraging EasyOCR's language support capabilities.")
 
-    with st.expander("What happens if the OCR fails to extract information correctly?"):
-        st.write("If the OCR fails to extract information correctly, you can manually edit the extracted data before saving it to the database.")
+        with st.expander("Do I need an internet connection to use BizCardX?"):
+            st.write("Yes, an internet connection is required to upload images, process them using EasyOCR, and interact with Google Gen AI (Gemini) for data classification.")
 
-    with st.expander("Is there a mobile app for BizCardX?"):
-        st.write("Currently, BizCardX is a web-based application. However, we are planning to develop a mobile app for on-the-go card scanning in the future.")
+        with st.expander("Is there a limit to the number of business cards I can upload?"):
+            st.write("BizCardX does not impose a strict limit on the number of business cards you can upload. However, storage limitations may depend on the plan or subscription you are using.")
 
-    with st.expander("Which programming language is used to build BizCardX?"):
-        st.write("BizCardX is built using Python, leveraging libraries and frameworks such as Streamlit for the web interface, EasyOCR for optical character recognition, and various other tools for AI and database integration.")
+        with st.expander("How can I ensure the best OCR results with BizCardX?"):
+            st.write("To ensure the best OCR results, please upload clear and well-lit images of the business cards. Avoid shadows and reflections that may obscure the text.")
 
-    with st.expander("How long does it take to process a business card?"):
-        st.write("Processing time can vary depending on the complexity of the card and server load, but typically it takes just a few seconds to extract and classify the information.")    
+        with st.expander("What happens if the OCR fails to extract information correctly?"):
+            st.write("If the OCR fails to extract information correctly, you can manually edit the extracted data before saving it to the database.")
 
-    with st.expander("Can I export the extracted data to other formats?"):
-        st.write("Currently, BizCardX allows you to export extracted data in CSV format.")
+        with st.expander("Is there a mobile app for BizCardX?"):
+            st.write("Currently, BizCardX is a web-based application. However, we are planning to develop a mobile app for on-the-go card scanning in the future.")
 
+        with st.expander("Which programming language is used to build BizCardX?"):
+            st.write("BizCardX is built using Python, leveraging libraries and frameworks such as Streamlit for the web interface, EasyOCR for optical character recognition, and various other tools for AI and database integration.")
+
+        with st.expander("How long does it take to process a business card?"):
+            st.write("Processing time can vary depending on the complexity of the card and server load, but typically it takes just a few seconds to extract and classify the information.")    
+
+        with st.expander("Can I export the extracted data to other formats?"):
+            st.write("Currently, BizCardX allows you to export extracted data in CSV format.")
+    about()
 
 
 if menu_id == 'UPLOAD & EXTRACT':
