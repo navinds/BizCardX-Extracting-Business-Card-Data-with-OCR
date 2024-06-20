@@ -17,11 +17,13 @@ import ast
 import streamlit.components.v1 as components
 import base64
 from io import BytesIO
+from dotenv import load_dotenv
+import os
 
 
 # MongoDB connection string
-mongo_atlas_user_name = st.secrets["mongo_atlas_user_name"]
-mongo_atlas_password = st.secrets["mongo_atlas_password"]
+mongo_atlas_user_name =  os.getenv("mongo_atlas_user_name") 
+mongo_atlas_password = os.getenv("mongo_atlas_password") 
 client = pymongo.MongoClient(f"mongodb+srv://{mongo_atlas_user_name}:{mongo_atlas_password}@cluster0.mkrsiyl.mongodb.net/?retryWrites=true&w=majority")
 #client = pymongo.MongoClient("mongodb://localhost:27017/")
 db = client.bizcardx
@@ -216,7 +218,7 @@ def extract_text_and_display(image):
     text_to_classify = "\n".join(text_lines)
     def google_genai(text_to_classify):
         # Configure the Generative AI API
-        genai.configure(api_key=st.secrets["google_genai_api_key"])
+        genai.configure(api_key= os.getenv("google_genai_api_key") )
         # Define the generation configuration
         generation_config = {
             "temperature": 1,
