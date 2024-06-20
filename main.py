@@ -238,9 +238,46 @@ def modify_existing_data():
 
 
 # Initialize EasyOCR reader
-reader = easyocr.Reader(['en'])
+@st.cache_resource
+def easyocr_reader():
+    reader = easyocr.Reader(['en'])
+    return reader
 
+reader = easyocr_reader()
 
+@st.cache_resource
+def load_generative_model():
+    genai.configure(api_key=st.secrets["google_genai_api_key"])
+    generation_config = {
+        "temperature": 1,
+        "top_p": 0.95,
+        "top_k": 64,
+        "max_output_tokens": 8192,
+        "response_mime_type": "text/plain",
+    }
+    return genai.GenerativeModel(
+        model_name="gemini-1.5-flash",
+        generation_config=generation_config,
+        safety_settings={
+            HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
+            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
+        }
+    )
+
+generative_model = load_generative_model()
+
+def google_genai(text_to_classify):
+    # Start a chat session with the model
+    chat_session = generative_model.start_chat(history=[])
+    # Send message to the model with extracted text
+    response = chat_session.send_message(
+        f"""Please analyze the following data and accurately identify the details. Organize them in the following format: 
+        Company Name, Card Holder Name, Designation, Phone Number, Email, Website, Address, State, City, and Pincode. 
+        Ensure the address is complete, including the city, state, and pincode. Please correct any errors in the given data like missing dot in the email or website ect. 
+        Don't take company name from email id, if there is no company name in the provided data leave it blank.
+        Provide the final output in a Python dictionary format.: {text_to_classify}"""
+    )
+    return response
 
 def extract_text_and_display(image):
     # Perform OCR
@@ -250,40 +287,6 @@ def extract_text_and_display(image):
     
     # Concatenate text lines into a single string
     text_to_classify = "\n".join(text_lines)
-    def google_genai(text_to_classify):
-        # Configure the Generative AI API
-        genai.configure(api_key=st.secrets["google_genai_api_key"])
-        # Define the generation configuration
-        generation_config = {
-            "temperature": 1,
-            "top_p": 0.95,
-            "top_k": 64,
-            "max_output_tokens": 8192,
-            "response_mime_type": "text/plain",
-        }
-
-        # Create the GenerativeModel with new configuration and safety settings
-        model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash",
-            generation_config=generation_config,
-            safety_settings={
-                HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
-                HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
-            }
-        )
-
-        # Start a chat session with the model
-        chat_session = model.start_chat(history=[])
-
-        # Send message to the model with extracted text
-        response = chat_session.send_message(
-            f"""Please analyze the following data and accurately identify the details. Organize them in the following format: 
-            Company Name, Card Holder Name, Designation, Phone Number, Email, Website, Address, State, City, and Pincode. 
-            Ensure the address is complete, including the city, state, and pincode. Please correct any errors in the given data like missing dot in the email or website ect. 
-            Don't take company name from email id, if there is no company name in the provided data leave it blank.
-            Provide the final output in a Python dictionary format.: {text_to_classify}""")
-        
-        return response
     
     response = google_genai(text_to_classify)
     # Initialize extracted_info to avoid UnboundLocalError
@@ -313,15 +316,15 @@ def extract_text_and_display(image):
 
             # Update extracted_info with the data from the response dictionary
             extracted_info.update({
-                'company_name': data.get("Company Name", "").title() if data.get("Company Name") is not None else "",
-                'card_holder_name': data.get("Card Holder Name", "").title() if data.get("Card Holder Name") is not None else "",
-                'designation': data.get("Designation", "").title() if data.get("Designation") is not None else "",
+                'company_name': data.get("Company Name", ""),
+                'card_holder_name': data.get("Card Holder Name", ""),
+                'designation': data.get("Designation", ""),
                 'mobile_number': data.get("Phone Number", ""),
-                'email_address': data.get("Email", "").lower() if data.get("Email") is not None else "",
-                'website_url': data.get("Website", "").lower() if data.get("Website") is not None else "",
+                'email_address': data.get("Email", ""),
+                'website_url': data.get("Website", ""),
                 'address': data.get("Address", ""),
-                'city': data.get("City", "").title() if data.get("City") is not None else "",
-                'state': data.get("State", "").title() if data.get("State") is not None else "",
+                'city': data.get("City", ""),
+                'state': data.get("State", ""),
                 'pin_code': data.get("Pincode", "")
             })
         except (ValueError, SyntaxError) as e:
