@@ -6,8 +6,6 @@ import cv2
 import streamlit as st
 from PIL import Image
 import matplotlib.pyplot as plt
-import sqlalchemy as sa
-from sqlalchemy import create_engine, text, inspect
 import pymongo
 import pandas as pd
 import hydralit_components as hc
