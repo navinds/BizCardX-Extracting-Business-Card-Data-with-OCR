@@ -21,8 +21,8 @@ import ast
 # MongoDB connection string
 mongo_atlas_user_name = st.secrets["mongo_atlas_user_name"]
 mongo_atlas_password = st.secrets["mongo_atlas_password"]
-# client = pymongo.MongoClient(f"mongodb+srv://{mongo_atlas_user_name}:{mongo_atlas_password}@cluster0.mkrsiyl.mongodb.net/?retryWrites=true&w=majority")
-client = pymongo.MongoClient("mongodb://localhost:27017/")
+client = pymongo.MongoClient(f"mongodb+srv://{mongo_atlas_user_name}:{mongo_atlas_password}@cluster0.mkrsiyl.mongodb.net/?retryWrites=true&w=majority")
+#client = pymongo.MongoClient("mongodb://localhost:27017/")
 db = client.bizcardx
 collection = db.bizcard_collection
 
