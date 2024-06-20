@@ -175,7 +175,8 @@ def modify_existing_data():
             'pin_code': [pin_code]
         })
 
-        st.write("Corrected Data:")
+        st.subheader(":blue[Corrected Data:]")
+        st.text(":red[To see updated data please click enter after making correction in the text box]")
         st.dataframe(updated_df)
         
 
@@ -198,6 +199,8 @@ def modify_existing_data():
                 }}
             )
             st.success("Record has been successfully updated.")
+            st.text(":blue[Updated Record]")
+            st.table(updated_df)
     
 
 
@@ -673,6 +676,8 @@ if menu_id == 'UPLOAD & EXTRACT':
         extracted_df['pin_code'].iloc[0] = pin_code
 
         ## Show updated DataFrame
+        st.subheader(":blue[Extracted Data:]")
+        st.caption(":red[To see updated data please click enter after making correction in the text box]")
         st.dataframe(extracted_df, use_container_width=True)
         
         st.caption(":blue[If everything is fine save the data into database. You can view or modify the data anytime.]")
