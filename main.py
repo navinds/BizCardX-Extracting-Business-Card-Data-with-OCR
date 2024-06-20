@@ -672,7 +672,7 @@ if menu_id == 'UPLOAD & EXTRACT':
         extracted_df['state'].iloc[0] = state
         extracted_df['pin_code'].iloc[0] = pin_code
 
-        # Show updated DataFrame
+        ## Show updated DataFrame
         st.dataframe(extracted_df, use_container_width=True)
         
         st.caption(":blue[If everything is fine save the data into database. You can view or modify the data anytime.]")
