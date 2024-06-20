@@ -176,8 +176,8 @@ def modify_existing_data():
         })
 
         st.subheader(":blue[Corrected Data:]")
-        st.text(":red[To see updated data please click enter after making correction in the text box]")
-        st.dataframe(updated_df)
+        st.caption(":red[To see corrected data please click enter after making correction in the text box]")
+        st.table(updated_df)
         
 
 
@@ -199,9 +199,42 @@ def modify_existing_data():
                 }}
             )
             st.success("Record has been successfully updated.")
-            st.text(":blue[Updated Record]")
-            st.table(updated_df)
-    
+            
+            # Define the CSS style
+            style = """
+            <style>
+                .info {
+                    font-size: 15px;
+                    line-height: 1.6;
+                }
+                .info .label {
+                    color: white;
+                }
+                .info .value {
+                    color: green;
+                }
+            </style>
+            """
+
+            # Write the style to the Streamlit app
+            st.markdown(style, unsafe_allow_html=True)
+
+            # Display each piece of information
+            st.markdown(f"""
+            <div class="info">
+                <span class="label">company_name: </span><span class="value">{company_name}</span><br>
+                <span class="label">card_holder_name: </span><span class="value">{card_holder_name}</span><br>
+                <span class="label">designation: </span><span class="value">{designation}</span><br>
+                <span class="label">mobile_number: </span><span class="value">{mobile_number}</span><br>
+                <span class="label">email_address: </span><span class="value">{email_address}</span><br>
+                <span class="label">website_url: </span><span class="value">{website_url}</span><br>
+                <span class="label">address: </span><span class="value">{address}</span><br>
+                <span class="label">city: </span><span class="value">{city}</span><br>
+                <span class="label">state: </span><span class="value">{state}</span><br>
+                <span class="label">pin_code: </span><span class="value">{pin_code}</span><br>
+            </div>
+            """, unsafe_allow_html=True)         
+                            
 
 
 # Initialize EasyOCR reader
@@ -677,8 +710,8 @@ if menu_id == 'UPLOAD & EXTRACT':
 
         ## Show updated DataFrame
         st.subheader(":blue[Extracted Data:]")
-        st.caption(":red[To see updated data please click enter after making correction in the text box]")
-        st.dataframe(extracted_df, use_container_width=True)
+        st.caption(":red[If you did any correction, please click enter after making correction in the text box to update the correction]")
+        st.table(extracted_df)
         
         st.caption(":blue[If everything is fine save the data into database. You can view or modify the data anytime.]")
 
