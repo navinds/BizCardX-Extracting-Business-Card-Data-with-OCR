@@ -612,7 +612,7 @@ if menu_id == 'UPLOAD & EXTRACT':
                                     <lottie-player src="{extracting_animation_url}" 
                                                 background="transparent" 
                                                 speed="1" 
-                                                style="width: 600px; height: 500px;" 
+                                                style="width: 590px; height: 500px;" 
                                                 loop autoplay>
                                     </lottie-player>
                                 </div>
