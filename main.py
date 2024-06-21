@@ -17,13 +17,16 @@ import ast
 import streamlit.components.v1 as components
 import base64
 from io import BytesIO
+from dotenv import load_dotenv
+import os
+
 
 
 st.set_page_config(page_title="BizCardX",layout="wide", page_icon="https://raw.githubusercontent.com/navinds/BizCardX-Extracting-Business-Card-Data-with-OCR/main/Media/bizcard_favicon.png",)
 
 # MongoDB connection string
-mongo_atlas_user_name = st.secrets["mongo_atlas_user_name"]
-mongo_atlas_password = st.secrets["mongo_atlas_password"]
+mongo_atlas_user_name = os.getenv("mongo_atlas_user_name")
+mongo_atlas_password = os.getenv("mongo_atlas_password")
 client = pymongo.MongoClient(f"mongodb+srv://{mongo_atlas_user_name}:{mongo_atlas_password}@cluster0.mkrsiyl.mongodb.net/?retryWrites=true&w=majority")
 # client = pymongo.MongoClient("mongodb://localhost:27017/")
 db = client.bizcardx
@@ -249,7 +252,7 @@ reader = easyocr_reader()
 
 @st.cache_resource
 def load_generative_model():
-    genai.configure(api_key=st.secrets["google_genai_api_key"])
+    genai.configure(api_key=os.getenv("google_genai_api_key"))
     generation_config = {
         "temperature": 1,
         "top_p": 0.95,
