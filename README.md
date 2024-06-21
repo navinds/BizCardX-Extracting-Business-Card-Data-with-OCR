@@ -1,6 +1,7 @@
 # BizCardX: Extracting Business Card Data with OCR
 
 BizCardX is a Streamlit application that allows users to upload images of business cards and extract relevant information using EasyOCR and Google Gen AI (Gemini). The application processes the images to identify and classify text into categories such as company name, card holder name, designation, phone number, email address, website URL, area, city, state, and pin code. The extracted information can be saved in a MongoDB database, and users can view, update, and delete records through the Streamlit interface.
+[click here to see the app](https://bizcardx.azurewebsites.net/)
 
 ![image](https://github.com/navinds/Zomato-Data-Analysis-and-Visualization/assets/155221787/d8d19423-c7c7-4099-a45d-d0ad84f65572)
 ![image](https://github.com/navinds/Zomato-Data-Analysis-and-Visualization/assets/155221787/507bb3a4-ee05-4dd4-a475-2e5b4d1463ad)
@@ -24,7 +25,8 @@ BizCardX is a Streamlit application that allows users to upload images of busine
 - **User-Friendly Interface**: Easy-to-use interface with quick access to essential features and intuitive navigation.
 - **Advanced Database Integration**: Save extracted information in MongoDB, ensuring efficient data management and scalability.
 - **Manage Records**: Easily add, update, and delete records through the application interface.
-
+- **Microsoft Azure Deployment**: Deployed on Azure for optimal performance and to overcome memory limitations inherent in using EasyOCR, OpenCV, and Gemini.
+  
 ## How It Works
 1. **Upload a Business Card Image**: Use the 'Upload Business Card' section to upload an image of a business card.
 2. **Extract Information**: BizCardX uses EasyOCR to extract text from the image.
@@ -40,6 +42,10 @@ BizCardX is a Streamlit application that allows users to upload images of busine
 - **OpenCV**: Used for handling images; includes preprocessing steps such as resizing, cropping, and thresholding to enhance image quality before passing it to the OCR engine.
 - **Streamlit**: Framework for creating the web interface.
 - **Streamlit Lottie**: For adding animations to the UI.
+- **Azure**: Cloud platform where the application is deployed for hosting and running the application.
+
+## Deployment
+This application is deployed on Microsoft Azure to overcome memory limitations encountered with Streamlit's default hosting options. Azure provides robust cloud infrastructure that ensures reliable performance and scalability, allowing the application to handle large datasets and complex computations seamlessly.
 
 ## How This Application Will Be Helpful
 1. Automates the process of extracting and organizing business card information, reducing manual data entry time.
@@ -81,6 +87,10 @@ To run this project locally, follow these steps:
     ```bash
     streamlit run main.py
     ```
+
+## Access the App
+
+Explore the live version of the Fine Dine app here: [BizCardX App](https://bizcardx.azurewebsites.net/).
 
 ## References
 - [Python Documentation](https://docs.python.org/)
