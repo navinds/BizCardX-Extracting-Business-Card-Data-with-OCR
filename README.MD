@@ -4,8 +4,8 @@ BizCardX is a Streamlit application that allows users to upload images of busine
 
 ![image](https://github.com/navinds/Zomato-Data-Analysis-and-Visualization/assets/155221787/d8d19423-c7c7-4099-a45d-d0ad84f65572)
 ![image](https://github.com/navinds/Zomato-Data-Analysis-and-Visualization/assets/155221787/507bb3a4-ee05-4dd4-a475-2e5b4d1463ad)
-![image](https://github.com/navinds/Zomato-Data-Analysis-and-Visualization/assets/155221787/5681bfac-661e-4018-8848-02322f9481e8)
-
+![image](https://github.com/navinds/Zomato-Data-Analysis-and-Visualization/assets/155221787/0f1db7e4-6a64-4cba-ae67-fee3011b99cb)
+![image](https://github.com/navinds/Zomato-Data-Analysis-and-Visualization/assets/155221787/7c843122-54f2-4cc2-bef6-59c2056bbcf8)
 
 
 ## Features
