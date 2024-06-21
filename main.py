@@ -371,8 +371,8 @@ st.markdown("""
         <style>
                .block-container {
                     padding-top: 2.2rem;
-                    padding-left: 3rem;
-                    padding-right: 3rem;
+                    padding-left: 3.5rem;
+                    padding-right: 3.5rem;
                 }
         </style>
         """, unsafe_allow_html=True)
@@ -438,7 +438,7 @@ if menu_id == 'HOME':
                 hom4_ani = load_lottie_url(hom4_url)
                 st_lottie(hom4_ani,width=500, height=300, quality='medium')  
 
-        hom5,hom6,hom7 = st.columns([1.15,1.05,1.90])
+        hom5,hom6,hom7 = st.columns([1.15,1,1.90])
         with hom5:
             image_url = 'https://github.com/navinds/BizCardX-Extracting-Business-Card-Data-with-OCR/blob/main/Media/Google%20Ai%20Gemini.png?raw=true'
             st.image(image_url, width=400)  # Adjust width as needed
@@ -449,6 +449,7 @@ if menu_id == 'HOME':
             ai_url = "https://lottie.host/9f5e4af3-920f-4900-919a-1d0cb13a2dbf/3nfdf7Eoxz.json"
             ai_ani = load_lottie_url(ai_url)
             st_lottie(ai_ani, width=300, height=300, quality='medium')  
+
 
         hom7,hom8 = st.columns(2)
         with hom7:
@@ -461,28 +462,46 @@ if menu_id == 'HOME':
                 ui_ani = load_lottie_url(ui_url)
                 st_lottie(ui_ani,width=500, height=350, quality='medium')  
 
-        hom9,hom10= st.columns(2)
-        with hom9:
-                db_url = "https://lottie.host/4a3c23db-b109-4ffa-976e-82b40ab9eb60/uuQ7e0SReD.json"
-                db_ani = load_lottie_url(db_url)
-                st_lottie(db_ani,width=500, height=400, quality='medium')  
+        hom13,hom14,hom14a = st.columns([1.15,1.10,1.90])         
+        
+        with hom13:
+            azure_image_url = 'https://raw.githubusercontent.com/navinds/BizCardX-Extracting-Business-Card-Data-with-OCR/main/Media/azure_logo.png'
+            st.image(azure_image_url, width=350)  # Adjust width as needed
+        with hom14a:
+            st.title("")
+            st.subheader(":blue[**Powered by Azure**:] Deployed on Microsoft Azure to ensure high performance, scalability, and to ensuring reliable operation with EasyOCR, OpenCV, and Google Gen AI (Gemini).")
+        with hom14:
+            speed_url = "https://lottie.host/11bed660-d9e6-4033-9220-a578b6208122/uVbvg9JuLM.json"
+            speed_ani = load_lottie_url(speed_url)
+            st_lottie(speed_ani, width=200, height=300, quality='medium') 
 
-        with hom10:
+        hom9,hom10= st.columns(2)
+
+        with hom9:
             st.title(" ")
             st.text("")
             st.text("")
             st.subheader(":blue[**Database Integration**:] Efficiently store extracted information in MongoDB, an advanced NoSQL database, ensuring efficient data management and scalability.")
 
-        hom11,hom12 = st.columns(2)
-        with hom11:
-            st.title("")
-            st.title("")
-            st.subheader(":blue[**Manage Records**:] Easily add, update, and delete records through the application interface.")
+        with hom10:
+                db_url = "https://lottie.host/4a3c23db-b109-4ffa-976e-82b40ab9eb60/uuQ7e0SReD.json"
+                db_ani = load_lottie_url(db_url)
+                st_lottie(db_ani,width=500, height=400, quality='medium')  
 
-        with hom12:
+
+        hom11,hom12 = st.columns(2)
+
+        with hom11:
                 ui_url = "https://lottie.host/20ede9b0-bc49-4829-8387-75d2377c16e0/2Quqi5SjMT.json"
                 ui_ani = load_lottie_url(ui_url)
                 st_lottie(ui_ani,width=500, height=350, quality='medium')  
+
+        with hom12:
+            st.title("")
+            st.title("")
+            st.subheader(":blue[**Manage Records**:] Easily add, update, and delete records through the application interface.")               
+
+           
     home()
 
 if menu_id == 'ABOUT':
@@ -505,6 +524,7 @@ if menu_id == 'ABOUT':
         - **Google Gen AI (Gemini)**: Employed for intelligent data classification to correctly identify and categorize extracted text.
         - **MongoDB**: An advanced NoSQL database used for efficient and scalable data storage.
         - **Streamlit**: The framework used to build our user-friendly and interactive interface.
+        - **Azure**: Cloud platform where the application is deployed for hosting and running the application.
         """)
         
         st.header(":blue[Core Features]")
@@ -514,7 +534,12 @@ if menu_id == 'ABOUT':
         - **User-Friendly Interface**: Intuitive and responsive design for easy navigation and usage.
         - **Advanced Database Integration**: Stores extracted information in MongoDB for robust and scalable data management.
         - **Comprehensive Record Management**: Easily add, update, and delete records through the application interface.
+        - **Microsoft Azure Deployment**: Deployed on Azure for optimal performance and to overcome memory limitations inherent in using EasyOCR, OpenCV, and Gemini.             
         """)
+        
+        st.header(":blue[Deployment]")
+        st.markdown("""This application is deployed on Microsoft Azure to overcome memory limitations encountered with Streamlit's default hosting options. 
+                    Azure provides robust cloud infrastructure that ensures reliable performance and scalability, allowing the application to handle large datasets and complex computations seamlessly.""")
         
         st.header(":blue[How This Application Will Be Helpful]")
         st.markdown("""
