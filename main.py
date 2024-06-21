@@ -18,6 +18,7 @@ import streamlit.components.v1 as components
 import base64
 from io import BytesIO
 
+st.set_page_config(page_title="BizCardX",layout="wide", page_icon="https://raw.githubusercontent.com/navinds/BizCardX-Extracting-Business-Card-Data-with-OCR/main/Media/bizcard_favicon.png",)
 
 # MongoDB connection string
 mongo_atlas_user_name = st.secrets["mongo_atlas_user_name"]
@@ -360,8 +361,6 @@ def extract_text_and_display(image):
 
 
 # Streamlit UI
-st.set_page_config(page_title="BizCardX",layout="wide", page_icon="https://raw.githubusercontent.com/navinds/BizCardX-Extracting-Business-Card-Data-with-OCR/main/Media/bizcard_favicon.png",)
-
 st.markdown("""
         <style>
                .block-container {
