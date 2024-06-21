@@ -18,13 +18,14 @@ import streamlit.components.v1 as components
 import base64
 from io import BytesIO
 
+
 st.set_page_config(page_title="BizCardX",layout="wide", page_icon="https://raw.githubusercontent.com/navinds/BizCardX-Extracting-Business-Card-Data-with-OCR/main/Media/bizcard_favicon.png",)
 
 # MongoDB connection string
 mongo_atlas_user_name = st.secrets["mongo_atlas_user_name"]
 mongo_atlas_password = st.secrets["mongo_atlas_password"]
 client = pymongo.MongoClient(f"mongodb+srv://{mongo_atlas_user_name}:{mongo_atlas_password}@cluster0.mkrsiyl.mongodb.net/?retryWrites=true&w=majority")
-#client = pymongo.MongoClient("mongodb://localhost:27017/")
+# client = pymongo.MongoClient("mongodb://localhost:27017/")
 db = client.bizcardx
 collection = db.bizcard_collection
 
@@ -260,8 +261,10 @@ def load_generative_model():
         model_name="gemini-1.5-flash",
         generation_config=generation_config,
         safety_settings={
-            HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
-            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
+            HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
         }
     )
 
@@ -317,15 +320,15 @@ def extract_text_and_display(image):
 
             # Update extracted_info with the data from the response dictionary
             extracted_info.update({
-                'company_name': data.get("Company Name", ""),
-                'card_holder_name': data.get("Card Holder Name", ""),
-                'designation': data.get("Designation", ""),
+                'company_name': data.get("Company Name", "").title() if data.get("Company Name") is not None else "",
+                'card_holder_name': data.get("Card Holder Name", "").title() if data.get("Card Holder Name") is not None else "",
+                'designation': data.get("Designation", "").title() if data.get("Designation") is not None else "",
                 'mobile_number': data.get("Phone Number", ""),
-                'email_address': data.get("Email", ""),
-                'website_url': data.get("Website", ""),
+                'email_address': data.get("Email", "").lower() if data.get("Email") is not None else "",
+                'website_url': data.get("Website", "").lower() if data.get("Website") is not None else "",
                 'address': data.get("Address", ""),
-                'city': data.get("City", ""),
-                'state': data.get("State", ""),
+                'city': data.get("City", "").title() if data.get("City") is not None else "",
+                'state': data.get("State", "").title() if data.get("State") is not None else "",
                 'pin_code': data.get("Pincode", "")
             })
         except (ValueError, SyntaxError) as e:
