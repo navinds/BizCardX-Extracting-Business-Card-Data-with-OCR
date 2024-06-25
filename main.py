@@ -639,6 +639,7 @@ if menu_id == 'ABOUT':
 if menu_id == 'UPLOAD & EXTRACT':
     st.title("Business Card Data Extraction")
     st.caption(":blue[Simply Upload a business card, extract the data, and store into database! ]")
+
     # Function to clear session state
     def clear_text_inputs():
         keys_to_delete = [key for key in list(st.session_state.keys()) if key.startswith('input_') or key in ['extracted_df', 'annotated_image']]
@@ -647,6 +648,11 @@ if menu_id == 'UPLOAD & EXTRACT':
 
     # File uploader with on_change to clear text inputs
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"], on_change=clear_text_inputs)
+    st.markdown(
+    """
+    You can try using the following sample images for testing the application:  [Sample Images on Google Drive](https://drive.google.com/drive/folders/1ukKwUSMEYPzks8GdULB5dXZP6ZLDXvMe?usp=sharing)
+    """
+    )    
     if not uploaded_file:
         introcol1, introcol2, introcol3 = st.columns([1, 1, 1])
         with introcol2:
