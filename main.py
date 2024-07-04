@@ -245,7 +245,7 @@ def modify_existing_data():
 # Initialize EasyOCR reader
 @st.cache_resource
 def easyocr_reader():
-    reader = easyocr.Reader(['en'])
+    reader = easyocr.Reader(['en'],quantize=True)
     return reader
 
 reader = easyocr_reader()
