@@ -1,7 +1,7 @@
 # BizCardX: Extracting Business Card Data with OCR
 
 BizCardX is a Streamlit application that allows users to upload images of business cards and extract relevant information using EasyOCR and Google Gen AI (Gemini). The application processes the images to identify and classify text into categories such as company name, card holder name, designation, phone number, email address, website URL, area, city, state, and pin code. The extracted information can be saved in a MongoDB database, and users can view, update, and delete records through the Streamlit interface.
-[click here to see the app](https://bizcardx.azurewebsites.net/)
+[click here to see the app](https://navins-bizcardx.azurewebsites.net/)
 
 ![image](https://github.com/navinds/Zomato-Data-Analysis-and-Visualization/assets/155221787/d8d19423-c7c7-4099-a45d-d0ad84f65572)
 ![image](https://github.com/navinds/Zomato-Data-Analysis-and-Visualization/assets/155221787/507bb3a4-ee05-4dd4-a475-2e5b4d1463ad)
@@ -90,7 +90,7 @@ To run this project locally, follow these steps:
 
 ## Access the App
 
-Explore the live version of the Fine Dine app here: [BizCardX App](https://bizcardx.azurewebsites.net/).
+Explore the live version of the Fine Dine app here: [BizCardX App](https://navins-bizcardx.azurewebsites.net/).
 
 ## References
 - [Python Documentation](https://docs.python.org/)
