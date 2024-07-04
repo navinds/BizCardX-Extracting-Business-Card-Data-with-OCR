@@ -536,9 +536,9 @@ if menu_id == 'ABOUT':
         - **Comprehensive Record Management**: Easily add, update, and delete records through the application interface. 
         """)
    #   - **Microsoft Azure Deployment**: Deployed on Azure for optimal performance and to overcome memory limitations inherent in using EasyOCR, OpenCV, and Gemini.        
-        st.header(":blue[Deployment]")
-        st.markdown("""This application is deployed on Microsoft Azure to overcome memory limitations encountered with Streamlit's default hosting options. 
-                    Azure provides robust cloud infrastructure that ensures reliable performance and scalability, allowing the application to handle large datasets and complex computations seamlessly.""")
+        # st.header(":blue[Deployment]")
+        # st.markdown("""This application is deployed on Microsoft Azure to overcome memory limitations encountered with Streamlit's default hosting options. 
+        #             Azure provides robust cloud infrastructure that ensures reliable performance and scalability, allowing the application to handle large datasets and complex computations seamlessly.""")
         
         st.header(":blue[How This Application Will Be Helpful]")
         st.markdown("""
