@@ -464,31 +464,16 @@ if menu_id == 'HOME':
 
         hom13,hom14,hom14a = st.columns([1.15,1.10,1.90])         
         
-        with hom13:
-            azure_image_url = 'https://raw.githubusercontent.com/navinds/BizCardX-Extracting-Business-Card-Data-with-OCR/main/Media/azure_logo.png'
-            st.image(azure_image_url, width=350)  # Adjust width as needed
-        with hom14a:
-            st.title("")
-            st.subheader(":blue[**Powered by Azure**:] Deployed on Microsoft Azure to ensure high performance, scalability, and to ensuring reliable operation with EasyOCR, OpenCV, and Google Gen AI (Gemini).")
-        with hom14:
-            speed_url = "https://lottie.host/11bed660-d9e6-4033-9220-a578b6208122/uVbvg9JuLM.json"
-            speed_ani = load_lottie_url(speed_url)
-            st_lottie(speed_ani, width=200, height=300, quality='medium') 
-
-        hom9,hom10= st.columns(2)
-
-        with hom9:
-            st.title(" ")
-            st.text("")
-            st.text("")
-            st.subheader(":blue[**Database Integration**:] Efficiently store extracted information in MongoDB, an advanced NoSQL database, ensuring efficient data management and scalability.")
-
-        with hom10:
-                db_url = "https://lottie.host/4a3c23db-b109-4ffa-976e-82b40ab9eb60/uuQ7e0SReD.json"
-                db_ani = load_lottie_url(db_url)
-                st_lottie(db_ani,width=500, height=400, quality='medium')  
-
-
+        # with hom13:
+        #     azure_image_url = 'https://raw.githubusercontent.com/navinds/BizCardX-Extracting-Business-Card-Data-with-OCR/main/Media/azure_logo.png'
+        #     st.image(azure_image_url, width=350)  # Adjust width as needed
+        # with hom14a:
+        #     st.title("")
+        #     st.subheader(":blue[**Powered by Azure**:] Deployed on Microsoft Azure to ensure high performance, scalability, and to ensuring reliable operation with EasyOCR, OpenCV, and Google Gen AI (Gemini).")
+        # with hom14:
+        #     speed_url = "https://lottie.host/11bed660-d9e6-4033-9220-a578b6208122/uVbvg9JuLM.json"
+        #     speed_ani = load_lottie_url(speed_url)
+        #     st_lottie(speed_ani, width=200, height=300, quality='medium') 
         hom11,hom12 = st.columns(2)
 
         with hom11:
@@ -499,7 +484,23 @@ if menu_id == 'HOME':
         with hom12:
             st.title("")
             st.title("")
-            st.subheader(":blue[**Manage Records**:] Easily add, update, and delete records through the application interface.")               
+            st.subheader(":blue[**Manage Records**:] Easily add, update, and delete records through the application interface.")     
+            
+        hom9,hom10= st.columns(2)
+
+        with hom9:
+            st.title(" ")
+            st.text("")
+            st.text("")
+            st.subheader(":blue[**Database Integration**:] Efficiently store extracted information in MongoDB, an advanced NoSQL database, ensuring efficient data management and scalability.")
+
+
+        with hom10:
+                db_url = "https://lottie.host/4a3c23db-b109-4ffa-976e-82b40ab9eb60/uuQ7e0SReD.json"
+                db_ani = load_lottie_url(db_url)
+                st_lottie(db_ani,width=500, height=400, quality='medium')  
+
+          
 
            
     home()
@@ -524,19 +525,18 @@ if menu_id == 'ABOUT':
         - **Google Gen AI (Gemini)**: Employed for intelligent data classification to correctly identify and categorize extracted text.
         - **MongoDB**: An advanced NoSQL database used for efficient and scalable data storage.
         - **Streamlit**: The framework used to build our user-friendly and interactive interface.
-        - **Azure**: Cloud platform where the application is deployed for hosting and running the application.
         """)
-        
+
+    #- **Azure**: Cloud platform where the application is deployed for hosting and running the application.    
         st.header(":blue[Core Features]")
         st.markdown("""
         - **Accurate Information Extraction**: Efficiently extracts text information from business card images.
         - **AI-Powered Identification**: Utilizes advanced AI to classify and organize extracted data into relevant categories.
         - **User-Friendly Interface**: Intuitive and responsive design for easy navigation and usage.
         - **Advanced Database Integration**: Stores extracted information in MongoDB for robust and scalable data management.
-        - **Comprehensive Record Management**: Easily add, update, and delete records through the application interface.
-        - **Microsoft Azure Deployment**: Deployed on Azure for optimal performance and to overcome memory limitations inherent in using EasyOCR, OpenCV, and Gemini.             
+        - **Comprehensive Record Management**: Easily add, update, and delete records through the application interface. 
         """)
-        
+   #   - **Microsoft Azure Deployment**: Deployed on Azure for optimal performance and to overcome memory limitations inherent in using EasyOCR, OpenCV, and Gemini.        
         st.header(":blue[Deployment]")
         st.markdown("""This application is deployed on Microsoft Azure to overcome memory limitations encountered with Streamlit's default hosting options. 
                     Azure provides robust cloud infrastructure that ensures reliable performance and scalability, allowing the application to handle large datasets and complex computations seamlessly.""")
