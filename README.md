@@ -25,7 +25,6 @@ BizCardX is a Streamlit application that allows users to upload images of busine
 - **User-Friendly Interface**: Easy-to-use interface with quick access to essential features and intuitive navigation.
 - **Advanced Database Integration**: Save extracted information in MongoDB, ensuring efficient data management and scalability.
 - **Manage Records**: Easily add, update, and delete records through the application interface.
-- **Microsoft Azure Deployment**: Deployed on Azure for optimal performance and to overcome memory limitations inherent in using EasyOCR, OpenCV, and Gemini.
   
 ## How It Works
 1. **Upload a Business Card Image**: Use the 'Upload Business Card' section to upload an image of a business card.
@@ -42,7 +41,6 @@ BizCardX is a Streamlit application that allows users to upload images of busine
 - **OpenCV**: Used for handling images; includes preprocessing steps such as resizing, cropping, and thresholding to enhance image quality before passing it to the OCR engine.
 - **Streamlit**: Framework for creating the web interface.
 - **Streamlit Lottie**: For adding animations to the UI.
-- **Azure**: Cloud platform where the application is deployed for hosting and running the application.
 
 ## Deployment
 This application is deployed on Microsoft Azure to overcome memory limitations encountered with Streamlit's default hosting options. Azure provides robust cloud infrastructure that ensures reliable performance and scalability, allowing the application to handle large datasets and complex computations seamlessly.
