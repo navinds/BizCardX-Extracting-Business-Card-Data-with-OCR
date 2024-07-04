@@ -451,18 +451,20 @@ if menu_id == 'HOME':
             st_lottie(ai_ani, width=300, height=300, quality='medium')  
 
 
-        hom7,hom8 = st.columns(2)
-        with hom7:
+        hom9,hom10= st.columns(2)
+
+        with hom9:
+            st.title(" ")
             st.text("")
-            st.title("")
-            st.subheader(":blue[**User-Friendly Interface**:] Seamlessly interact with a straightforward and user-friendly interface. Enjoy quick access to essential features, intuitive navigation, and responsive design")
+            st.text("")
+            st.subheader(":blue[**Database Integration**:] Efficiently store extracted information in MongoDB, an advanced NoSQL database, ensuring efficient data management and scalability.")
 
-        with hom8:
-                ui_url = "https://lottie.host/597857c7-1fff-423c-b104-f80bff449ed8/tKx86mrKLL.json"
-                ui_ani = load_lottie_url(ui_url)
-                st_lottie(ui_ani,width=500, height=350, quality='medium')  
+        with hom10:
+                db_url = "https://lottie.host/4a3c23db-b109-4ffa-976e-82b40ab9eb60/uuQ7e0SReD.json"
+                db_ani = load_lottie_url(db_url)
+                st_lottie(db_ani,width=500, height=400, quality='medium')  
 
-        hom13,hom14,hom14a = st.columns([1.15,1.10,1.90])         
+        #hom13,hom14,hom14a = st.columns([1.15,1.10,1.90])         
         
         # with hom13:
         #     azure_image_url = 'https://raw.githubusercontent.com/navinds/BizCardX-Extracting-Business-Card-Data-with-OCR/main/Media/azure_logo.png'
@@ -474,6 +476,10 @@ if menu_id == 'HOME':
         #     speed_url = "https://lottie.host/11bed660-d9e6-4033-9220-a578b6208122/uVbvg9JuLM.json"
         #     speed_ani = load_lottie_url(speed_url)
         #     st_lottie(speed_ani, width=200, height=300, quality='medium') 
+
+
+
+
         hom11,hom12 = st.columns(2)
 
         with hom11:
@@ -484,24 +490,17 @@ if menu_id == 'HOME':
         with hom12:
             st.title("")
             st.title("")
-            st.subheader(":blue[**Manage Records**:] Easily add, update, and delete records through the application interface.")     
-            
-        hom9,hom10= st.columns(2)
-
-        with hom9:
-            st.title(" ")
+            st.subheader(":blue[**Manage Records**:] Easily add, update, and delete records through the application interface.")               
+        hom7,hom8 = st.columns(2)
+        with hom7:
             st.text("")
-            st.text("")
-            st.subheader(":blue[**Database Integration**:] Efficiently store extracted information in MongoDB, an advanced NoSQL database, ensuring efficient data management and scalability.")
+            st.title("")
+            st.subheader(":blue[**User-Friendly Interface**:] Seamlessly interact with a straightforward and user-friendly interface. Enjoy quick access to essential features, intuitive navigation, and responsive design")
 
-
-        with hom10:
-                db_url = "https://lottie.host/4a3c23db-b109-4ffa-976e-82b40ab9eb60/uuQ7e0SReD.json"
-                db_ani = load_lottie_url(db_url)
-                st_lottie(db_ani,width=500, height=400, quality='medium')  
-
-          
-
+        with hom8:
+                ui_url = "https://lottie.host/597857c7-1fff-423c-b104-f80bff449ed8/tKx86mrKLL.json"
+                ui_ani = load_lottie_url(ui_url)
+                st_lottie(ui_ani,width=500, height=350, quality='medium')  
            
     home()
 
